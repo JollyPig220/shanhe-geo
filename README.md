@@ -1,41 +1,35 @@
-# 山河志 · V0.2
+# 山河志 · V0.3 全国地理总图资料预览
 
-以地图探索为核心的中国历史自然地理互动图册。本版默认浏览陕西，提供陕北、关中、陕南三个主题；主题只移动地图视野，不绘制分区边界。
+首页切换为全国无标签地形，提供 34 个省级浏览目录、候选轮廓点击高亮、名称开关、共享陆地边界相邻目录与聚焦操作。陕西专题和记忆挑战保留。
+
+**此版本是内部可体验的资料预览。** Natural Earth 许可已核实，但现行权威标准地图比对和领土/岛礁完整性未通过核验，因此还不能宣称完成“完整中国及34省级权威轮廓”的验收；暂不合并发布。详细限制见 [数据核验记录](data/README.md)。
 
 ## 预览
-
-无需构建或安装应用依赖。在仓库根目录运行：
 
 ```sh
 python3 -m http.server 8000 --bind 0.0.0.0
 ```
 
-通过开发环境的端口预览功能访问 8000 端口；本机开发时用浏览器访问本机 8000 端口。没有配置公开预览或部署。
+在本机浏览器访问本机 8000 端口。手机与电脑在同一局域网时，可访问电脑的局域网 IP 的 8000 端口。没有公开部署；当前 Codex onboarding 界面不能提供 localhost 预览链接。
 
-Leaflet 1.9.4 随仓库提供。底图仍需联网访问 `a/b/c.tile.opentopomap.org` 和 `a/b/c.tile.openstreetmap.org`；加载失败时显示提示，可切换底图或重试。没有离线缓存或批量下载瓦片。
+全国首页的 Leaflet、地形和省界文件全部本地提供，默认不请求外部瓦片，不需要密钥。34 个省区只显示省级名称，执行标签避让；可独立关闭名称与轮廓。地图可拖动、放大、缩小；港澳等小区域可从目录选中并聚焦。地形是小比例尺图片，放大后会模糊，不用于精细位置判定。
 
-## 保留的功能
+陕西与记忆挑战继续保留原在线地形/常规底图选项及署名。当前环境仍可能阻止原瓦片服务；可使用本地无标签地形。原有 `shanhe_custom`、`shanhe_wrong`、`shanhe_total` 数据不迁移、不清空。
 
-「记忆挑战」中保留山河定位、错题再练、历史战役、自制题库及 JSON 导入导出。继续使用原有 `shanhe_custom`、`shanhe_wrong`、`shanhe_total` 本地存储键，不迁移或清空已有数据。
+## 检查
 
-## 验证
-
-先启动上述服务。在已安装 Python Playwright 和 `/usr/bin/chromium` 的环境运行：
+静态服务器运行后，在已安装 Playwright 和 `/usr/bin/chromium` 的环境执行：
 
 ```sh
+python3 tests/national_smoke.py
 python3 tests/browser_smoke.py
+python3 tests/check_national_data.py
+node --check national-atlas.js
+git diff --check
 ```
 
-测试使用独立浏览器上下文，检查三个主题视野、首页不显示挑战、答题、历史完成及重启、自制题库增删与导入导出、刷新后数据持久化、底图署名切换及 390px 手机布局。截图和导出测试文件写入 `/tmp/atlas-*`。不会修改使用者浏览器的数据。
+全国测试检查本地图片实际解码、默认无外网请求、34 目录加载、真实地图点击、选中高亮、名称/轮廓开关、相邻目录、港澳台聚焦、全国复位、缩放拖动、移动布局、旧数据保留，以及数据请求失败/重试。原有浏览器测试覆盖陕西与记忆挑战。测试使用独立浏览器上下文，不改动使用者的数据，截图存放 `/tmp/national-*.png`。
 
-本次 Chromium 实测交互通过，无 JavaScript 异常；当前环境的瓦片请求返回网络代理 403，因此真实地形图片、标签清晰度、成功加载后的视觉效果尚未实测。手机测试为 Chromium 触屏模拟，未测试实体手机或 Safari。
+## 图层架构
 
-## 来源与限制
-
-- 地形底图数据：© OpenStreetMap 贡献者（ODbL）、SRTM；制图 © OpenTopoMap（CC BY-SA 3.0）。常规底图：© OpenStreetMap 贡献者。页面和地图保留可点击署名与许可链接。
-- OpenTopoMap 许可说明：https://opentopomap.org/about
-- OSM 版权：https://www.openstreetmap.org/copyright
-- OSM 瓦片政策：https://operations.osmfoundation.org/policies/tiles/
-- CC BY-SA 3.0：https://creativecommons.org/licenses/by-sa/3.0/
-- 区域文字为概括性地理导览，阅读参考指向陕西省人民政府官网；未导入新的地理空间数据。具体边界、位置与历史政区仍待逐项资料核验。官网及服务最新条款本次因网络限制未能重新读取，补充署名不代表完成所有服务政策核验。
-- 栅格底图包含既有标签，暂不能独立隐藏标签。地形色彩未通过滤镜修改，以保留原有信息。
+`national-atlas.js` 管理全国图层及选择状态，`national-atlas.css` 管理全国布局，`data/sources.json` 记录来源、版本、许可、精度局限和加工。后续地形单元、山脉、水系可通过同一注册接口独立叠加，不转换为独立题库。本轮没有增加这些专题数据或新测验。

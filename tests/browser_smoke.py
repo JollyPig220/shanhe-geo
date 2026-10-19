@@ -8,12 +8,13 @@ with sync_playwright() as p:
  assert page.locator('#explorePanel').is_visible()
  assert not page.locator('#challengePanel').is_visible()
  assert page.locator('.leaflet-pane').count()>0
+ page.get_by_role('button',name='省域试验 · 陕西山河 ↗').click()
  for key,lat in [('North',37.4),('Central',34.35),('South',32.9)]:
   page.locator('#theme'+key).click();page.wait_for_timeout(400)
   assert abs(page.evaluate('map.getCenter().lat')-lat)<0.05
   assert page.locator('#theme'+key).get_attribute('aria-pressed')=='true'
  assert page.evaluate('marks.length')==0
- page.get_by_role('button',name='回到陕西').click()
+ page.get_by_role('button',name='陕西视野').click()
  page.screenshot(path='/tmp/atlas-desktop.png',full_page=True)
  page.locator('#challengeEntry').click()
  page.locator('#map').click(position={'x':350,'y':300})
@@ -49,6 +50,7 @@ with sync_playwright() as p:
  page.get_by_role('button',name='删除',exact=True).click()
  assert page.locator('#customCount').inner_text()=='0'
  page.get_by_role('button',name='← 返回山河探索').click()
+ page.get_by_role('button',name='省域试验 · 陕西山河 ↗').click()
  page.locator('#layerSimple').click()
  assert page.locator('.leaflet-control-attribution a[href="https://www.openstreetmap.org/copyright"]').count()==1
  page.locator('#layerTerrain').click()
@@ -58,6 +60,7 @@ with sync_playwright() as p:
  mobile=b.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True,device_scale_factor=1)
  mobile.goto('http://127.0.0.1:8000/',wait_until='networkidle')
  assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
+ mobile.get_by_role('button',name='省域试验 · 陕西山河 ↗').click()
  mobile.locator('#themeCentral').click();mobile.wait_for_timeout(400)
  assert mobile.locator('#regionTitle').inner_text().startswith('关中')
  mobile.screenshot(path='/tmp/atlas-mobile.png',full_page=True)

@@ -1,0 +1,96 @@
+{
+  "status": "technical-preview-not-standard-map",
+  "retrieved_at_utc": "2026-10-19",
+  "official_comparison": "Blocked: bzdt.ch.mnr.gov.cn unavailable via current network; boundary currency, territorial completeness and island allocation have NOT been certified. Do not treat this layer as current official administrative or territorial boundaries.",
+  "vector": {
+    "publisher": "Natural Earth",
+    "repository": "https://github.com/nvkelso/natural-earth-vector",
+    "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+    "path": "geojson/ne_10m_admin_1_states_provinces.geojson",
+    "source_sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5",
+    "version": "5.1.1",
+    "scale": "1:10,000,000",
+    "crs": "EPSG:4326",
+    "license": "Public domain; upstream LICENSE.md covers raster and vector",
+    "effective_boundary_date": null,
+    "positional_accuracy_m": null,
+    "processing": "Select CHN/HKG/MAC/TWN upstream groups; dissolve HKG/MAC/TWN groups; group source Paracel feature with Hainan. Preserve source coordinates, no hand drawing, no simplification, no invented connecting lines. Names normalized. Grouping does not certify official island allocation.",
+    "expected_features": 34,
+    "source_parts": {
+      "CN-BJ": 1,
+      "CN-TJ": 1,
+      "CN-HE": 1,
+      "CN-SX": 1,
+      "CN-NM": 1,
+      "CN-LN": 1,
+      "CN-JL": 1,
+      "CN-HL": 1,
+      "CN-SH": 1,
+      "CN-JS": 1,
+      "CN-ZJ": 1,
+      "CN-AH": 1,
+      "CN-FJ": 1,
+      "CN-JX": 1,
+      "CN-SD": 1,
+      "CN-HA": 1,
+      "CN-HB": 1,
+      "CN-HN": 1,
+      "CN-GD": 1,
+      "CN-GX": 1,
+      "CN-HI": 2,
+      "CN-CQ": 1,
+      "CN-SC": 1,
+      "CN-GZ": 1,
+      "CN-YN": 1,
+      "CN-XZ": 1,
+      "CN-SN": 1,
+      "CN-GS": 1,
+      "CN-QH": 1,
+      "CN-NX": 1,
+      "CN-XJ": 1,
+      "CN-TW": 21,
+      "CN-HK": 18,
+      "CN-MO": 1
+    },
+    "neighbors": "Shared source boundary segments only; does not establish complete official adjacency."
+  },
+  "raster": {
+    "publisher": "Natural Earth",
+    "repository": "https://github.com/nvkelso/natural-earth-raster",
+    "commit": "f04832c819e7a203d159dffe93cd9245332d6b33",
+    "path": "50m_rasters/HYP_50M_SR/HYP_50M_SR.tif",
+    "source_sha256": "18320396c1ec7d9dc6096fcd288543e9b5e02811be87459761eb6a069e57714f",
+    "version": "2.0.0",
+    "scale": "1:50,000,000",
+    "source_crs": "EPSG:4326",
+    "source_cell_degrees": 0.03333333333333333,
+    "output_crs": "EPSG:3857",
+    "bounds_latlng": [
+      [
+        0,
+        65
+      ],
+      [
+        60,
+        145
+      ]
+    ],
+    "size_px": [
+      2400,
+      2264
+    ],
+    "processing": "Crop 65–145E, 0–60N; bilinear latitude reprojection to Web Mercator; JPEG quality 91; no manual terrain edits. Colors blend climate and elevation; not a numerical elevation classification.",
+    "license": "Public domain",
+    "effective_terrain_date": null
+  },
+  "outputs": {
+    "provinces-preview.geojson": {
+      "sha256": "e40a1a7d39d08568a0544d68d2bcdab6f97d8e47ec8cf2c18827d13d9ff084cd",
+      "bytes": 1239065
+    },
+    "china-relief.jpg": {
+      "sha256": "7cc683b33a62afb8781e47e0351b5d1a9108cfe1f276d0cbdd43951f8be9c8a8",
+      "bytes": 1183152
+    }
+  }
+}
